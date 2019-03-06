@@ -3,6 +3,7 @@ import _thread
 import threading
 import time
 
+# 共享全局变量
 number = 1
 
 
@@ -11,12 +12,17 @@ def print_time(thread_name, delay):
     while count < 5:
         time.sleep(delay)
         count += 1
+        print(threading.current_thread())
+        listThread = threading.enumerate()
+        for i in listThread:
+            print("\t name=%s ident=%d %s" % (i.name, i.ident, i.isAlive()))
+        print("active_count--%d" % threading.active_count())
         print("%s,%s count=%d" % (thread_name, time.ctime(time.time()), count))
 
 
 def test():
     global number
-    while number < 100:
+    while number <3:
         number += 1
         print("test=%d" % number)
         pass
@@ -24,7 +30,7 @@ def test():
 
 def test1():
     global number
-    while number < 100:
+    while number < 3:
         number += 1
         print("test1=%d" % number)
         pass
@@ -38,10 +44,10 @@ def main():
     finally:
         pass
 
-    thread = threading.Thread(target=test)
-    thread1 = threading.Thread(target=test1)
-    thread.start()
-    thread1.start()
+    # thread = threading.Thread(target=test)
+    # thread1 = threading.Thread(target=test1)
+    # thread.start()
+    # thread1.start()
 
     while True:
         length = len(threading.enumerate())

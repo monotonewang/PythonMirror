@@ -10,6 +10,8 @@ isGender = True  # bool 类型 True 对应的是 1 false 对应的是0
 # isGender = False
 print(age-isGender)
 
+chinese = ord('中')
+print(chinese)
 print(number)
 print(age)
 print(name)

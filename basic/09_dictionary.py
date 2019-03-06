@@ -1,5 +1,13 @@
 dic = {'a': 1, 'b': 2, "c": 3, 'd': 5}
 
+# 打印出来的是key
+for key1 in dic:
+    print(key1)
+
+# 获得的是一个元组 dic.items()
+for key1 in dic.items():
+    print(key1[1])
+
 print(dic['a'])
 dic['a'] = 4
 
