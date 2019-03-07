@@ -20,9 +20,12 @@ def print_time(thread_name, delay):
         print("%s,%s count=%d" % (thread_name, time.ctime(time.time()), count))
 
 
+max = 999999
+
+
 def test():
     global number
-    while number <3:
+    while number < max:
         number += 1
         print("test=%d" % number)
         pass
@@ -30,8 +33,9 @@ def test():
 
 def test1():
     global number
-    while number < 3:
+    while number < max:
         number += 1
+        time.sleep(1)
         print("test1=%d" % number)
         pass
 
@@ -44,16 +48,19 @@ def main():
     finally:
         pass
 
-    # thread = threading.Thread(target=test)
-    # thread1 = threading.Thread(target=test1)
-    # thread.start()
-    # thread1.start()
+    thread = threading.Thread(target=test)
+    thread1 = threading.Thread(target=test1)
+    thread.start()
+    thread1.start()
+    time.sleep(2)
 
-    while True:
-        length = len(threading.enumerate())
-        print("current run thread %s" % length)
-        if length <= 1:
-            break
+    print("main=%d" % number)
+
+    # while True:
+    #     length = len(threading.enumerate())
+    #     print("current run thread %s" % length)
+    #     if length <= 1:
+    #         break
 
 
 if __name__ == "__main__":
