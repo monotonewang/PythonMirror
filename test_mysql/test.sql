@@ -113,9 +113,15 @@ select max(age) from students;
 select avg(age) from students;
 select (sum(age)/count(*)) as avg from students;
 -- 保留两位小数  存储单位不用小数
-select round((sum(age)/count(*)),2) as acg from students;
+select round((sum(age)/count(*)),2) as avg from students;
 -- 计算男性平均身高
-select round((sum(age)/count(*)),2) as acg from students where gender=1;
+select round((sum(age)/count(*)),2) as avg from students where gender=1;
+-- 查找所有性别的数量统计
+select gender,count(*) from students group by gender;
+-- 组的名字拼接
+select gender,group_concat(name) from students group by gender;
+
+select gender,group_concat(name,age) from students group by gender;
 
 # – –按日
 SELECT COUNT(*),DATE(CreateTime) FROM t_voipchannelrecord WHERE YEAR(CreateTime)='2016' GROUP BY DAY(CreateTime);
