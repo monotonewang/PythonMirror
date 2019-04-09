@@ -2,6 +2,8 @@ create table classes(id int not null primary key,
 name varchar(30));
 
 insert into classes value (0,"python大神");
+-- shift+option+down 复制下一行
+insert into classes value (0,"python第一人");
 
 select * from classes;
 
@@ -122,6 +124,38 @@ select gender,count(*) from students group by gender;
 select gender,group_concat(name) from students group by gender;
 
 select gender,group_concat(name,age) from students group by gender;
+select gender,group_concat(name," ",age,"-") from students group by gender;
+
+-- 查询平均年龄超过30的姓名和性别 已经 平均年龄超过 30 的性别-----having age>30
+select gender,group_concat(name,"-",gender,"-",age) from students group by gender having avg(age)>30;
+
+-- 分页 从 index=0，开始往后取五条  （第N页减-1）*每页数量
+select * from students limit 0,5;
+select * from students limit 1,5;
+-- 第二页 每页10条
+select * from students limit 10,10;
+
+-- 连接查询
+select * from students as s inner join classes as c ;
+-- 起一个别名
+select * from students as s inner join classes as c on s.class_id=c.id;
+-- left join会显示左边所有信息
+select * from students as s left join classes as c on s.class_id=c.id;
+-- right join会显示右边表所有信息
+select s.*,c.name from students as s right join classes as c on s.class_id=c.id;
+-- 增加where条件，查询没有报班级的信息
+select s.*,c.name from students as s right join classes as c on s.class_id=c.id where s.class_id is null;
+
+-- 子查询 查询身高最高的男生信息
+select * from students where height=(select max(height) from students where gender="男");
+
+-- 什么是三大范式：
+-- 第一范式：当关系模式R的所有属性都不能在分解为更基本的数据单位时，称R是满足第一范式的，简记为1NF。满足第一范式是关系模式规范化的最低要
+--         求，否则，将有很多基本操作在这样的关系模式中实现不了。 用户名和电话号码地址不应该存储于一个字段。
+-- 第二范式：如果关系模式R满足第一范式，并且R得所有非主属性都完全依赖于R的每一个候选关键属性，称R满足第二范式，简记为2NF。
+--         每一行的数据只能与其中一列相关，即一行数据只做一件事。只要数据列中出现数据重复，就要把表拆分开来。
+-- 第三范式：设R是一个满足第一范式条件的关系模式，X是R的任意属性集，如果X非传递依赖于R的任意一个候选关键字，称R满足第三范式，简记为3NF.
+--         比如订单表里面的用户表，用户名称，用户电话，都依赖于customer_id ，所以不符合3NF,需要通过拆分.
 
 # – –按日
 SELECT COUNT(*),DATE(CreateTime) FROM t_voipchannelrecord WHERE YEAR(CreateTime)='2016' GROUP BY DAY(CreateTime);
