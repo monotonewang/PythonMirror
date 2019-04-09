@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-?
+# -*- coding: utf-8 -*-
 from pymysql import connect
 import platform
 import sys
 
+
 class Goods():
     def __init__(self):
-        # ?? connection???
+        # 创建 connection对象
         self.connect = connect(host="localhost", port=3306, user="root",
                           password="Ab123456", database="jing_dong")
-        # ?? cursor??
+        # create cursor object
         self.cursor = self.connect.cursor()
 
     def show_all_item(self):
@@ -32,22 +33,25 @@ class Goods():
         print(platform.python_version())
         print(sys.version)
         print(sys.version_info)
-        i=1
-        while i==1 or i==2 or i==3:
-            print(u'1.????')
-            print("2.??????")
-            print("3.????????")
-            i=input("please ?????????")
-            i=int(i)
-            if i==1:
-              self.show_all_item();
-            else :
-              self.show_cate();
+        i = 1
+        while i == 1 or i == 2 or i == 3:
+            print(u'1.商品分类')
+            print("2.商品分类")
+            print("3.商品品牌分类")
+            i = input("please 数字")
+            try:
+                i = int(i)
+                if i == 1:
+                    self.show_all_item();
+                else:
+                    self.show_cate();
+            except Exception as result:
+                pass
 
-
+            
 
 if __name__ == "__main__":
-    goods=Goods();
-    goods.run();
+    goods=Goods()
+    goods.run()
     pass
 
