@@ -21,3 +21,15 @@ print(type(isGender))
 print(type(name))
 print(type(height))
 print(type(number))  # int类型
+
+
+def funcation(a, b):
+    print(a, b)
+
+
+def say():
+    print('say in')
+
+apply(say)
+
+# apply(funcation,('whither','canada?'))
