@@ -1,3 +1,17 @@
+-- tinyint 1-128 127
+-- smallint 2 -32768-32767
+-- mediumint 3 -8388608-8388607
+-- int 4 -213747483648-2147483747
+-- bigint 8 -9223372036854775808-9223372036854775807
+
+-- 整数 int
+-- 小数 decimal
+-- 字符串 varchar,char （0-255）
+-- 日期时间 date(4)|2020-01-01,time(3)|12:49:12,datetime(8)|2012-01-12 12:12:12,year(1)|2018,timstamp(4)
+-- 枚举类型 enum
+-- 大文本数据类型 text 当字符大于4000的时候推荐使用这个（0-65535）
+
+
 create table classes(id int not null primary key,
 name varchar(30));
 

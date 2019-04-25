@@ -31,3 +31,13 @@ except Exception as result:
     print("count %s" % result)
 finally:
     print("finally")
+
+from contextlib import contextmanager
+
+# 高级版本
+# @contextmanager
+def fun_with():
+    with count(1) as f:
+        print(f)
+
+fun_with()
