@@ -25,12 +25,17 @@ SECRET_KEY = 'wa07h@=s)x%#s%rfu_-c=yfwb@bozwn!o94n1^o(@6+_yh&nz)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# debug 和allowed_hosts配合使用
+# DEBUG = False
+
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'booktest.apps.BookConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,9 +79,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'my_python',
+        'USER':'root',
+        'PASSWORD':'Ab123456',
     }
 }
 
@@ -103,9 +114,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

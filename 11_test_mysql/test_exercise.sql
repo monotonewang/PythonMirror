@@ -6,6 +6,8 @@ product表 需要 productId,productName,unitPrice,
 create database jing_dong charset=utf8;
 use jing_dong;
 
+drop database jing_dong;
+
 create table goods(
     id int unsigned not null primary key auto_increment,
     name varchar (150) not null,
