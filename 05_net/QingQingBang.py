@@ -15,7 +15,9 @@ gov_permission = "/v1/government/system/user/role/show"
 
 change_role_url="/v1/customer/auth/change_gov_role"
 
-token = "TCA6mD3MtT8wnBMphN"
+permission_list="/v1/government/system/permission/all/index"
+
+token = "bpjpb9fDpkckeBT5up"
 city_id = "330700"
 
 customer_id = "658"
@@ -32,7 +34,7 @@ platform = "Android"
 code = ""
 mobile = "13634133426"
 
-type = 1
+type = 3
 
 # 添加基本的字典
 def getParams(params):
@@ -51,6 +53,13 @@ def getPermission(url):
     print(str(r.url))
     print(str(x)+"/n/n")
     print(r.text)
+
+def getPermissionList():
+    r = requests.get(base_url+permission_list, getParams(params))
+    x = r.headers
+    print(str(r.url))
+    print(str(x)+"/n/n")
+    print(r.json())
 
 # 获取验证码
 def get_code():
@@ -106,5 +115,7 @@ if __name__ == "__main__":
         login(base_url+login_url)
     elif(type == 2):
         getPermission(base_url+gov_permission)
+    elif(type==3):
+        getPermissionList()
 
     pass
