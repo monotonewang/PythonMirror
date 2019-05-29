@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<header>
+
+</header>
+
+<body>
+    <div>
+        下面是所有的书籍信息：
+        <ul>
+            {% for i in book %}
+            <li><a href="{% url 'getBookDetail' book_id=i.id%}">{{i.btitle}}</a></li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+</body>

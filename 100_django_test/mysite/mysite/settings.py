@@ -88,6 +88,8 @@ DATABASES = {
         'NAME': 'my_python',
         'USER':'root',
         'PASSWORD':'Ab123456',
+        'HOST':'127.0.0.1',
+        'PORT':"3306"
     }
 }
 

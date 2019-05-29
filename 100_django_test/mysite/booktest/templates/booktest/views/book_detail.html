@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<header>
+
+</header>
+
+<body>
+    <!-- {{hero}} -->
+    <h1><a href="{% url 'add_hero' book_id=bookinfo.id%}">增加</a></h1>
+    
+    <div>
+        <ul>
+            {% for i in hero %}
+                <li>{{i.hname}} 绝技是：{{i.hcomment}} 
+                     <a href="{% url 'view_delete_hero' book_id=bookinfo.id hero_id=i.id%}">删除</a>
+                </li>
+            {% empty %}
+                <p>没有英雄信息</p>
+            {% endfor %}
+        </ul>
+        
+    </div>
+</body>
