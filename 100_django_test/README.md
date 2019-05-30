@@ -9,12 +9,16 @@
 
 <!-- change port -->
  python3 manage.py runserver 8080
+ python3 manage.py runserver 192.168.1.101:8080
 
 <!-- create your app -->
  python3 manage.py startapp booktest
 
 <!-- 创建Django基本表 包括用户写的model -->
 python3 manage.py migrate
+
+<!-- 用于查看某个版本的迁移 sql语句 -->
+python3 manage.py sqlmigrate booktest 0002
 
 <!-- setting.py INSTALLED_APPS  注册 'booktest.apps.BookConfig'-->
 <!-- Now Django knows to include the polls app. Let’s run another command: -->

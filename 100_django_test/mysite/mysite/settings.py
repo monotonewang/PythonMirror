@@ -28,7 +28,7 @@ DEBUG = True
 # debug 和allowed_hosts配合使用
 # DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
@@ -78,6 +78,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# mysql 5.7 login error
+# https://stackoverflow.com/questions/17975120/access-denied-for-user-rootlocalhost-using-password-yes-no-privileges
+
+# https://blog.csdn.net/lissdy/article/details/40793187
+# set GLOBAL general_log = 'ON';
+# show variables like 'general_log_file'
+# | general_log_file | /usr/local/mysql/data/fudeMacBook-Pro.log
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -87,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_python',
         'USER':'root',
-        'PASSWORD':'Ab123456',
+        'PASSWORD':'Current-Root-Password',
         'HOST':'127.0.0.1',
         'PORT':"3306"
     }

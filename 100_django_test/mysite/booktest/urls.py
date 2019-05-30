@@ -13,4 +13,6 @@ urlpatterns = [
     path('books/<int:book_id>', views.getBookDetail, name='getBookDetail'),
     path('add_hero/<int:book_id>', views.add_hero, name='add_hero'),
     path('delete_hero/<int:hero_id>/<int:book_id>', views.delete_hero, name='view_delete_hero'),
+    path('oneToOneSave', views.oneToOneSave, name='oneToOneSave'),
+    path('oneToOneDelete', views.oneToOneDelete, name='oneToOneDelete'),
 ]
