@@ -34,7 +34,7 @@ platform = "Android"
 code = ""
 mobile = "13634133426"
 
-type = 3
+type = 0
 
 # 添加基本的字典
 def getParams(params):

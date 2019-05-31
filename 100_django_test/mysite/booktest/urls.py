@@ -15,4 +15,11 @@ urlpatterns = [
     path('delete_hero/<int:hero_id>/<int:book_id>', views.delete_hero, name='view_delete_hero'),
     path('oneToOneSave', views.oneToOneSave, name='oneToOneSave'),
     path('oneToOneDelete', views.oneToOneDelete, name='oneToOneDelete'),
+    path('login', views.login, name='login'),
+    path('login_action', views.login_action, name='login_action'),
+    
 ]
+
+
+handler404 = 'booktest.views.handler404'
+handler500 = 'booktest.views.handler500'

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<header>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#ajax_commit').click(function () {
+                var usename = $('#ajax_username').val();
+                var password = $('#ajax_password').val();
+                $ajax
+                console.log("xxxxx" + usename + "password=" + password);
+            })
+
+        })
+    </script>
+</header>
+
+<body>
+    <div>
+        <form method="POST" action="{% url 'login_action' %}">
+
+            用户名：<input type="text" id='username' name="username"><br />
+            密码：<input type="password" id='password' name="password"><br />
+            <input type="submit" id="commit" value="form登录">
+        </form>
+        <div>
+            -----------------------------------------------------
+        </div>
+        <form method="POST">
+
+            ajax用户名：<input type="text" id='ajax_username' name="ajax_username"><br />
+            ajax密码：<input type="password" id='ajax_password' name="ajax_password"><br />
+            <input type="submit" id="ajax_commit" value="ajax登录">
+        </form>
+
+    </div>
+</body>

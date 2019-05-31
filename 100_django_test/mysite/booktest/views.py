@@ -10,7 +10,8 @@ from datetime import date
 from django.db.models import Q
 from django.db.models import F
 from django.db.models import Sum, Count, Max, Min, Avg
-
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 # Create your views here.
 
 
@@ -103,18 +104,57 @@ def delete_hero(request, hero_id, book_id):
    return redirect('getBookDetail', book_id)
 
 # 1对1的数据保存
+
+
 def oneToOneSave(request):
    temp = "张三"
    ages = 1
    empoly = EmpolyeeBasicInfo(name=temp, age=ages)
    empoly.save()
    all = EmpolyeeBasicInfo.objects.all()
-   allDetail= EmpolyeeDetailInfo(name=temp, age=ages, address="北京", empolyee_basic=empoly)
+   allDetail = EmpolyeeDetailInfo(
+       name=temp, age=ages, address="北京", empolyee_basic=empoly)
    allDetail.save()
    return HttpResponse(allDetail)
 
 # 1对1删除会产生连锁反应， 一张表对应数据删除，然后其他数据就没有了
+
+
 def oneToOneDelete(request):
    EmpolyeeBasicInfo.objects.filter(id=5).delete()
-   allEmpoly=EmpolyeeDetailInfo.objects.all()
-   return HttpResponse(allEmpoly)   
+   allEmpoly = EmpolyeeDetailInfo.objects.all()
+   return HttpResponse(allEmpoly)
+
+
+def handler404(request, *args, **argv):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request, *args, **argv):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
+
+#跳转到登录页面
+def login(request):
+    return render(request, 'booktest/views/login.html')
+
+# 对应 input里面的 name 属性
+
+#登录处理的action
+def login_action(request):
+    path = request.path
+    method = request.method
+    print("xxx path="+path+"method="+method)
+    name=str(request.POST.get('username'))
+    pwd=str(request.POST.get('password'))
+    if(name=="python" and pwd=="python"):
+        return redirect("getBooks")
+    else:
+        return redirect("/booktest/login")#重定向到登录了
+      #   return redirect(request,'booktest/views/login.html')#重定向到登录了
+   #  return HttpResponse("success"+"name="+name+"pwd="+pwd)
