@@ -1,16 +1,49 @@
+{% load  filters %}
 <!DOCTYPE html>
-<header>
-
-</header>
+<head>
+       
+    <style type="text/css">
+    .red{
+        background-color: red
+    }
+    .green{
+        background-color: green
+    }
+    .yellow{
+        background-color: yellow
+    }
+    </style>
+</head>
+         
 
 <body>
     <div>
+        恭喜你登录成功:<br/>
         下面是所有的书籍信息：
+        <!-- 下面是过滤器的使用  -->
         <ul>
             {% for i in book %}
-            <li><a href="{% url 'getBookDetail' book_id=i.id%}">{{i.btitle}}</a></li>
+                {# {% if i.id <= 2 %} #}
+                {% if i.id|mod_divde:2 %}
+                {# {% if i.id|mod %}#}
+                    <li class="red"><a href="{% url 'getBookDetail' book_id=i.id%}">{{i.btitle}}
+                            -{{i.bpub_date|date:'Y年-m月-d天'}}-{{i.bpub_date|date}}</a></li>
+                {#{% elif i.id <= 4 %} #}
+                    <!-- <li class="yellow"><a href="{% url 'getBookDetail' book_id=i.id%}">{{i.btitle}}
+                        -{{i.bpub_date|date:'Y年-m月-d天'}}-{{i.bpub_date|date}}</a></li>  -->
+                {% else %} 
+                    <li class="green"><a href="{% url 'getBookDetail' book_id=i.id%}">{{i.btitle}}
+                            -{{i.bpub_date|date:'Y年-m月-d天'}}-{{i.bpub_date|date}}</a></li>
+                {% endif %}
             {% endfor %}
         </ul>
-        
+        <!-- default过滤器 -->
+        {{content|default:"hello"}}
+        <!-- 多行注释 -->
+        {% comment %}
+        {{content|default:"yes"}}
+        {% endcomment %}
+        {{content|default:"no"}}
+        {{10|multi:5}}
     </div>
 </body>

@@ -17,7 +17,7 @@ change_role_url="/v1/customer/auth/change_gov_role"
 
 permission_list="/v1/government/system/permission/all/index"
 
-token = "bpjpb9fDpkckeBT5up"
+token = "JdxGtQGwIRi5r6fB7M"
 city_id = "330700"
 
 customer_id = "658"
@@ -34,7 +34,7 @@ platform = "Android"
 code = ""
 mobile = "13634133426"
 
-type = 0
+type = 3
 
 # 添加基本的字典
 def getParams(params):
@@ -74,6 +74,8 @@ def get_code():
 
 # 登录
 def login(url):
+    
+    print("login--->")
 
     login_params = {
         "city_id": city_id,
@@ -94,7 +96,6 @@ def login(url):
     print("url--->",r.url)
     print(r.text)
     json=r.json()
-    json()
 
 
 # 更换角色

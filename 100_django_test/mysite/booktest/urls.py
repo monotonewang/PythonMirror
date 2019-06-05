@@ -17,6 +17,11 @@ urlpatterns = [
     path('oneToOneDelete', views.oneToOneDelete, name='oneToOneDelete'),
     path('login', views.login, name='login'),
     path('login_action', views.login_action, name='login_action'),
+    path('template_extend', views.template_extend, name='template_extend'),
+    path('ajax_handle', views.ajax_handle, name='ajax_handle'),
+    path('book_list', views.book_list, name='book_list'),
+
+    # path(r'^showarg(\d+)$', views.showarg, name='showarg'),
     
 ]
 

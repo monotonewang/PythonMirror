@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import HeroInfo
 from .models import BookInfo
 from .models import EmpolyeeBasicInfo
@@ -12,6 +12,9 @@ from django.db.models import F
 from django.db.models import Sum, Count, Max, Min, Avg
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+import datetime
+import os
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -140,21 +143,103 @@ def handler500(request, *args, **argv):
     return response
 
 #跳转到登录页面
+
+
 def login(request):
-    return render(request, 'booktest/views/login.html')
+   #  try:
+      if(request.session.has_key("auLogin")):
+         autoLogin = request.session['auLogin']
+         print("login autologin="+str(autoLogin))
+         return redirect('getBooks')
+      else:
+         print("not login autologin=")
+         if('isLogin' in request.COOKIES):
+            isLogin = request.COOKIES['isLogin']
+
+            if(isLogin != ""):
+               print("get_cookie="+isLogin)
+               return render(request, 'booktest/views/login.html', {'rm_usename': isLogin})
+            else:
+               return render(request, 'booktest/views/login.html')
+   #  except Exception as result:
+   #       print("exception %s" % result)
+   #  else:
+   #       print("run else ")
+   #  finally:
+   #       print("end ")
+
+   #  return render(request, 'booktest/views/login.html')
 
 # 对应 input里面的 name 属性
 
 #登录处理的action
+
+
 def login_action(request):
     path = request.path
     method = request.method
     print("xxx path="+path+"method="+method)
-    name=str(request.POST.get('username'))
-    pwd=str(request.POST.get('password'))
-    if(name=="python" and pwd=="python"):
+    name = str(request.POST.get('username'))
+    pwd = str(request.POST.get('password'))
+
+    if(name == "python" and pwd == "python"):
         return redirect("getBooks")
     else:
-        return redirect("/booktest/login")#重定向到登录了
+        return redirect("/booktest/login")  # 重定向到登录了
       #   return redirect(request,'booktest/views/login.html')#重定向到登录了
    #  return HttpResponse("success"+"name="+name+"pwd="+pwd)
+
+
+def ajax_handle(request):
+    name = str(request.POST.get('ajax_username'))
+    pwd = str(request.POST.get('ajax_password'))
+    rm_username = str(request.POST.get('rm_username'))
+    au_login = request.POST.get('au_login')
+    print("rm_username="+rm_username+"au_login="+str(au_login))
+
+    print("xxx ajax_handle path="+name+"method="+pwd)
+    if(name == 'a' and pwd == 'a'):
+       print("xxx python="+name+"method="+pwd)
+       if(rm_username != ""):
+            print("set_cookie success")
+            # response = HttpResponse("设置cookie")
+            response = redirect('getBooks')
+            #  response.set_cookie("isLogin", rm_username)
+            response.set_cookie("isLogin", rm_username, max_age=7*24*3600)
+            request.session['auLogin'] = True
+            #  response.set_cookie("isLogin", rm_username,expires=datetime.now()+timedelta(days=7))
+            return response
+       else:  # reset cookie
+            print("set_cookie success")
+            response = HttpResponse("设置cookie")
+            response.set_cookie("isLogin", "")
+            return response
+   #  if(au_login==True):
+      # remember user login status
+       return JsonResponse({'res': 1})
+    else:
+       return JsonResponse({'res': 0})
+
+
+def set_cookie(request):
+   response = HttpResponse("set_cookie")
+   response.set_cookie('num', 1)
+   return response
+
+def template_extend(request):
+  path=os.path.realpath(__file__)
+  value=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+  print("value="+value)
+#   return HttpResponse(value)
+  return render(request, 'booktest/views/child.html',{'real_path':path})
+
+def book_list(request):
+   book_list=BookInfo.objects.all()
+   # print("all="+book_list)
+   paginator = Paginator(book_list, 2)
+   page_book_list=paginator.page(1)
+   pervious=page_book_list.has_previous()
+   next=page_book_list.has_next()
+   # print p.num_pages
+   print("pervious="+str(pervious)+"next="+str(next))
+   return HttpResponse(page_book_list)
