@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('index', views.index, name='index'),
@@ -20,10 +22,10 @@ urlpatterns = [
     path('template_extend', views.template_extend, name='template_extend'),
     path('ajax_handle', views.ajax_handle, name='ajax_handle'),
     path('book_list', views.book_list, name='book_list'),
-
+    
     # path(r'^showarg(\d+)$', views.showarg, name='showarg'),
     
-]
+]+static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 
 
 handler404 = 'booktest.views.handler404'
